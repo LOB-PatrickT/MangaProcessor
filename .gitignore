@@ -1,0 +1,10 @@
+# IntelliJ files (optional to include .idea/)
+# .idea/
+*.iml
+
+# Compiled output
+out/
+target/
+
+# macOS junk
+.DS_Store
