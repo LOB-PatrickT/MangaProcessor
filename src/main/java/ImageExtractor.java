@@ -17,7 +17,7 @@ public class ImageExtractor {
     private static final int BUFFER_SIZE = 4096;
     public static void main(String[] args) {
         String htmlContent = HtmlConstant.getHTMLContent();
-        String saveDirectory = "D:\\IMAGES_for_processing\\Cardcaptor Sakura Clear Card\\raw-images"; // Directory to save downloaded PNGs
+        String saveDirectory = "D:\\IMAGES_for_processing\\Waiting for Spring\\raw-images"; // Directory to save downloaded PNGs
 
         // Create the directory if it doesn't exist
         createDirectoryIfNotExists(saveDirectory);

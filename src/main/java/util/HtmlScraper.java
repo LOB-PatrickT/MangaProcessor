@@ -1,46 +1,47 @@
 package util;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.StringReader;
+import java.io.IOException;
 
 public class HtmlScraper {
 
     public static void main(String[] args) {
-        String filePath = "D:\\rawhtml.txt"; // Replace with the actual file path
-        domScraper(filePath);
+        String url = "https://comick.io/comic/sakamoto-days/5kwzB-volume-1-en"; // Replace with the actual file path
+        scrapeImages(url);
     }
 
-    public static void domScraper(String filePath) {
+    public static void scrapeImages(String url) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            StringBuilder htmlContent = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                htmlContent.append(line);
-            }
-            reader.close();
-
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-
-            InputSource inputSource = new InputSource(new StringReader(htmlContent.toString().trim()));
-            Document doc = builder.parse(inputSource);
-
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0")
+                    .referrer("http://www.google.com")
+                    .header("Accept-Language", "en-US,en;q=0.9")
+                    .header("Accept-Encoding", "gzip, deflate, br")
+                    .header("Connection", "keep-alive")
+                    .header("Upgrade-Insecure-Requests", "1")
+                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                    .header("Sec-Fetch-Dest", "document")
+                    .header("Sec-Fetch-Mode", "navigate")
+                    .header("Sec-Fetch-Site", "none")
+                    .header("Sec-Fetch-User", "?1")
+                    .get();
             // Extract all images from the <div id="images-reader-container">
-            NodeList imageNodes = doc.getElementById("images-reader-container").getElementsByTagName("img");
-            for (int i = 0; i < imageNodes.getLength(); i++) {
-                String src = imageNodes.item(i).getAttributes().getNamedItem("src").getTextContent();
-                System.out.println("Image source: " + src);
+            Element imagesContainer = doc.getElementById("images-reader-container");
+            if (imagesContainer != null) {
+                Elements imageElements = imagesContainer.getElementsByTag("img");
+                for (Element img : imageElements) {
+                    String src = img.attr("src");
+                    System.out.println("Image source: " + src);
+                }
+            } else {
+                System.out.println("No images found in the specified container.");
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

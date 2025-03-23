@@ -12,32 +12,32 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ImageExtractor_V3 {
+public class ImageExtractorUtil {
     public static String subChapter = "";
     public static void main(String[] args) {
         String htmlContent = HtmlConstant.getHTMLContent();
-        String saveDirectory = "D:\\IMAGES_for_processing\\Life So Happy\\raw-images"; // Directory to save downloaded PNGs
-        int chapter = 18;
+        String saveDirectory = "D:\\IMAGES_for_processing\\JJBA COLORED\\raw-images"; // Directory to save downloaded PNGs
+        int chapter = 43;
 
         // Create the directory if it doesn't exist
         createDirectoryIfNotExists(saveDirectory);
 
         try {
             Document doc = Jsoup.parse(htmlContent);
-            Elements imgTags = doc.select("img[src$=.jpg], img[src$=.png], img[src$=.jpeg]"); // Select JPG and PNG files
+            Elements imgTags = doc.select("img[src$=.jpg], img[src$=.png], img[src$=.jpeg], img[src*=webp]"); // Select JPG and PNG files
 //            Elements imgTags = doc.select("img[src*=webp]");
             int page = 1;
             for (Element img : imgTags) {
                 String srcValue = img.attr("src");
                 System.out.println("saving image: " + srcValue);
-                downloadPng(srcValue, saveDirectory, chapter, page++);
+                downloadPng(srcValue, saveDirectory, chapter, subChapter, page++);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void downloadPng(String pngUrl, String saveDirectory, int chapter, int page) throws IOException {
+    public static void downloadPng(String pngUrl, String saveDirectory, int chapter, String subChapter, int page) throws IOException {
 //        Thread thread = new Thread(() -> {
         try {
             URL url = new URL(pngUrl);

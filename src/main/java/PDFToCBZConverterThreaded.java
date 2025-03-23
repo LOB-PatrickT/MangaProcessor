@@ -21,7 +21,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 public class PDFToCBZConverterThreaded {
-    static String fileName = "My Neighbor Seki v08";
+    static String fileName = "Wotakoi Omnibus v02";
     static String mainPath = "D:\\PDF_for_processing\\";
     static String imagesOutputDir  = mainPath + "\\images\\";
     static int pagesProcessed = 0;

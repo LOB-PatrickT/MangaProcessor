@@ -12,14 +12,14 @@ import java.io.IOException;
 
 public class ImagesExtractorFromExcel {
     public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\Black Lagoon\\raw-images"; // Directory to save downloaded PNGs
+        String saveDirectory = "D:\\IMAGES_for_processing\\Smiley\\raw-images"; // Directory to save downloaded PNGs
         String excelFilePath = "D:\\manga-builder.xlsx"; // Path to the Excel file
 
         // Create the directory if it doesn't exist
         ImageExtractorUtil.createDirectoryIfNotExists(saveDirectory);
 
         try (Workbook workbook = new XSSFWorkbook(excelFilePath)) {
-            Sheet sheet = workbook.getSheetAt(1);
+            Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Skip the header row

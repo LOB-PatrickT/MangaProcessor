@@ -8,9 +8,9 @@ import java.util.zip.ZipOutputStream;
 
 public class ImageToCBZConverter {
     static int volume = 0;
-    static String targetPath = "D:\\IMAGES_for_processing\\Mushoku Tensei Jobless Reincarnation\\";
+    static String targetPath = "D:\\IMAGES_for_processing\\JJBA P7\\";
     public static void main(String[] args) {
-        for(volume = 19; volume <= 20; volume++) {
+        for(volume = 1; volume <= 24; volume++) {
             execute(volume);
         }
         changeZipToCbzRecursively(targetPath);
