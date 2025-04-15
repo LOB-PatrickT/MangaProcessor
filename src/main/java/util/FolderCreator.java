@@ -5,9 +5,9 @@ import java.io.File;
 public class FolderCreator {
 
     public static void main(String[] args) {
-        String baseFolder = "D:\\IMAGES_for_processing\\JJBA P7\\"; // Replace with your desired base folder path
+        String baseFolder = "D:\\IMAGES_for_processing\\As The Gods Will - The Second Series\\"; // Replace with your desired base folder path
 
-        for (int i = 1; i <= 24; i++) {
+        for (int i = 11; i <= 21; i++) {
             String folderName = "Vol " + (i < 10? "0" + i:i);
             String folderPath = baseFolder + File.separator + folderName;
 

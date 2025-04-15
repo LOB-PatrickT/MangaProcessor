@@ -101,7 +101,7 @@ public class ImageExtractor {
 
     public static String extractChapterNumber(String url) {
         String[] urlParts = url.split("/");
-        return urlParts[5];
+        return urlParts[5]; // increment number if URL path is more than sample: https://official.lowee.us/manga/Gachiakuta/0001-001.png
     }
 
     public static void createDirectoryIfNotExists(String directoryPath) {

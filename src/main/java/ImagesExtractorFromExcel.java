@@ -11,8 +11,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class ImagesExtractorFromExcel {
-    public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\Smiley\\raw-images"; // Directory to save downloaded PNGs
+    public static void main(String[] args) throws InterruptedException {
+        String saveDirectory = "D:\\IMAGES_for_processing\\Frieren\\raw-images"; // Directory to save downloaded PNGs
         String excelFilePath = "D:\\manga-builder.xlsx"; // Path to the Excel file
 
         // Create the directory if it doesn't exist
@@ -28,11 +28,19 @@ public class ImagesExtractorFromExcel {
                 Cell chapterCell = row.getCell(0);
                 Cell htmlContentCell = row.getCell(1);
 
+
                 if (chapterCell == null || htmlContentCell == null) {
                     continue; // Skip rows with empty cells
                 }
-                int chapter = (int) chapterCell.getNumericCellValue();
+                int chapter = 0;
                 String subChapter = "";
+                if(chapterCell.toString().contains(".") && Integer.valueOf(chapterCell.toString().split("\\.")[1]) > 0) {
+                    chapter = Integer.valueOf(chapterCell.toString().split("\\.")[0]);
+                    subChapter = "." + chapterCell.toString().split("\\.")[1];
+                }
+                else {
+                    chapter = (int) chapterCell.getNumericCellValue();
+                }
                 String htmlContent = htmlContentCell.getStringCellValue();
 
                 Document doc = Jsoup.parse(htmlContent);
@@ -41,6 +49,7 @@ public class ImagesExtractorFromExcel {
                 for (Element img : imgTags) {
                     String srcValue = img.attr("src");
                     System.out.println("saving image: " + srcValue + " for chapter " + chapter + " page " + page);
+                    Thread.sleep(200);
                     ImageExtractorUtil.downloadPng(srcValue, saveDirectory, subChapter.contains(".")? chapter+1 : chapter, subChapter, page++);
                 }
             }

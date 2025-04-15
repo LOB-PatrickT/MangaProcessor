@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class ImageSorterByImageNameAsVolumes {
     public static void main(String args[]) {
-        String mainPath = "D:\\IMAGES_for_processing\\Strobe Edge\\";
+        String mainPath = "D:\\IMAGES_for_processing\\Doraemon\\";
         String rawImagesFolder = "raw-images";
         try {
             File folder = new File(mainPath + rawImagesFolder);

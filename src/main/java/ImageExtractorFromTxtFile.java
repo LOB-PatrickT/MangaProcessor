@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ImageExtractorFromTxtFile {
     public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\JJBA COLORED\\raw-images"; // Directory to save downloaded PNGs
+        String saveDirectory = "D:\\IMAGES_for_processing\\The Seductive Wife\\raw-images"; // Directory to save downloaded PNGs
         String textFilePath = ImageExtractorFromTxtFile.class.getClassLoader().getResource("htmlmappings.txt").getPath(); // Path to the text file in resources // Path to the text file
 
         // Create the directory if it doesn't exist
@@ -30,7 +30,7 @@ public class ImageExtractorFromTxtFile {
                 for (Element img : imgTags) {
                     String srcValue = img.attr("src");
                     System.out.println("saving image: " + srcValue + " for chapter " + chapter + " page " + page);
-                    Thread.sleep(400);
+                    Thread.sleep(100);
                     ImageExtractorUtil.downloadPng(srcValue, saveDirectory, subChapter.contains(".") ? chapter + 1 : chapter, subChapter, page++);
                 }
             }

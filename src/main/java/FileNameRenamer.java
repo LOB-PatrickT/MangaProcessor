@@ -2,7 +2,7 @@ import java.io.File;
 
 public class FileNameRenamer {
     public static void main(String[] args) {
-        String folderPath = "E:\\CBZ formats IN PROGRESS\\MANGA\\Miss Koboyashi's Dragon Maid (15)";  // Replace with the actual folder path
+        String folderPath = "D:\\DOWNLOADS\\ungrouped CBZs";  // Replace with the actual folder path
         File folder = new File(folderPath);
 
         File[] files = folder.listFiles();
@@ -10,7 +10,7 @@ public class FileNameRenamer {
             for (File file : files) {
                 String originalName = file.getName();
 
-                String renamedString = rename(originalName);
+                String renamedString = reduceCBZFileNameBy(originalName);
 
                 if (!originalName.equals(renamedString)) {  // Check if renaming is necessary
                     File renamedFile = new File(folderPath + "/" + renamedString);
@@ -28,8 +28,12 @@ public class FileNameRenamer {
         return originalName.replaceAll("\\s*\\(\\d{4}\\)*", "");
     }
 
+    private static String renameToKFX(String originalName) {
+        return originalName.replace(".kepub", " KFX");
+    }
+
     private static String rename(String originalName) {
-        return originalName.replace("MKDM", "MK's Dragon Maid");
+        return originalName.replace(" .cbz", ".cbz");
     }
 
     private static String changeZIPtoCBZtype(String originalName) {
@@ -37,7 +41,7 @@ public class FileNameRenamer {
     }
 
     private static String reduceCBZFileNameBy(String originalName) {
-        return originalName.substring(0, Math.min(originalName.length(), 19)) + ".cbz";
+        return originalName.substring(0, Math.min(originalName.length(), 23)) + ".cbz";
     }
 
     private static String reduceEPUBFileNameBy(String originalName) {

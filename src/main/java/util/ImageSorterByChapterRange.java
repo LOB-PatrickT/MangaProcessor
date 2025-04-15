@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ImageSorterByChapterRange {
     public static void main(String args[]) {
-        String mainPath = "D:\\IMAGES_for_processing\\Hunter x Hunter (COLORED)\\";
+        String mainPath = "D:\\IMAGES_for_processing\\The Prince of Tennis\\";
         String rawImagesFolder = "raw-images";
         try {
             File folder = new File(mainPath + rawImagesFolder);
@@ -17,44 +17,51 @@ public class ImageSorterByChapterRange {
             List<int[]> volumePartitions = new LinkedList<>();
             // vol 1 to 20
 
-            volumePartitions.add(new int[]{1, 8}); // Volume 1
-            volumePartitions.add(new int[]{9, 17}); // Volume 2
-            volumePartitions.add(new int[]{18, 26}); // Volume 3
-            volumePartitions.add(new int[]{27, 35}); // Volume 4
-            volumePartitions.add(new int[]{36, 44}); // Volume 5
-            volumePartitions.add(new int[]{45, 54});   // Volume 6
-            volumePartitions.add(new int[]{55, 63});   // Volume 7
-            volumePartitions.add(new int[]{64, 73});   // Volume 8
-            volumePartitions.add(new int[]{74, 83});   // Volume 9
-            volumePartitions.add(new int[]{84, 93});   // Volume 10
-            volumePartitions.add(new int[]{94, 103});  // Volume 11
-            volumePartitions.add(new int[]{104, 115}); // Volume 12
-            volumePartitions.add(new int[]{116, 127}); // Volume 13
-            volumePartitions.add(new int[]{128, 139}); // Volume 14
-            volumePartitions.add(new int[]{140, 151}); // Volume 15
-            volumePartitions.add(new int[]{152, 163}); // Volume 16
-            volumePartitions.add(new int[]{164, 175}); // Volume 17
-            volumePartitions.add(new int[]{176, 187}); // Volume 18
-            volumePartitions.add(new int[]{188, 199}); // Volume 19
-            volumePartitions.add(new int[]{200, 211}); // Volume 20
-            volumePartitions.add(new int[]{212, 223}); // Volume 21
-            volumePartitions.add(new int[]{224, 235}); // Volume 22
-            volumePartitions.add(new int[]{236, 247}); // Volume 23
-            volumePartitions.add(new int[]{248, 260}); // Volume 24
-            volumePartitions.add(new int[]{261, 270}); // Volume 25
-            volumePartitions.add(new int[]{271, 280}); // Volume 26
-            volumePartitions.add(new int[]{281, 290}); // Volume 27
-            volumePartitions.add(new int[]{291, 300}); // Volume 28
-            volumePartitions.add(new int[]{301, 310}); // Volume 29
-            volumePartitions.add(new int[]{311, 320}); // Volume 30
-            volumePartitions.add(new int[]{321, 330}); // Volume 31
-            volumePartitions.add(new int[]{331, 340}); // Volume 32
-            volumePartitions.add(new int[]{341, 350}); // Volume 33
-            volumePartitions.add(new int[]{351, 360}); // Volume 34
-            volumePartitions.add(new int[]{361, 370}); // Volume 35
-            volumePartitions.add(new int[]{371, 380}); // Volume 36
-            volumePartitions.add(new int[]{381, 390}); // Volume 37
-//            volumePartitions.add(new int[]{381, 400}); // Volume 38
+            volumePartitions.add(new int[]{1, 7}); // Volume 1
+            volumePartitions.add(new int[]{8, 16}); // Volume 2
+            volumePartitions.add(new int[]{17, 25}); // Volume 3
+            volumePartitions.add(new int[]{26, 34}); // Volume 4
+            volumePartitions.add(new int[]{35, 42}); // Volume 5
+            volumePartitions.add(new int[]{43, 51});   // Volume 6
+            volumePartitions.add(new int[]{52, 60});   // Volume 7
+            volumePartitions.add(new int[]{61, 69});   // Volume 8
+            volumePartitions.add(new int[]{70, 78});   // Volume 9
+            volumePartitions.add(new int[]{79, 87});   // Volume 10
+            volumePartitions.add(new int[]{88, 96});  // Volume 11
+            volumePartitions.add(new int[]{97, 105}); // Volume 12
+            volumePartitions.add(new int[]{106, 114}); // Volume 13
+            volumePartitions.add(new int[]{115, 123}); // Volume 14
+            volumePartitions.add(new int[]{124, 131}); // Volume 15
+            volumePartitions.add(new int[]{132, 140}); // Volume 16
+            volumePartitions.add(new int[]{141, 149}); // Volume 17
+            volumePartitions.add(new int[]{150, 158}); // Volume 18
+            volumePartitions.add(new int[]{159, 167}); // Volume 19
+            volumePartitions.add(new int[]{168, 176}); // Volume 20
+            volumePartitions.add(new int[]{177, 185}); // Volume 21
+            volumePartitions.add(new int[]{186, 192}); // Volume 22
+            volumePartitions.add(new int[]{193, 201}); // Volume 23
+            volumePartitions.add(new int[]{202, 210}); // Volume 24
+            volumePartitions.add(new int[]{211, 219}); // Volume 25
+            volumePartitions.add(new int[]{220, 229}); // Volume 26
+            volumePartitions.add(new int[]{230, 237}); // Volume 27
+            volumePartitions.add(new int[]{238, 245}); // Volume 28
+            volumePartitions.add(new int[]{246, 255}); // Volume 29
+            volumePartitions.add(new int[]{256, 264}); // Volume 30
+            volumePartitions.add(new int[]{265, 273}); // Volume 31
+            volumePartitions.add(new int[]{274, 282}); // Volume 32
+            volumePartitions.add(new int[]{283, 292}); // Volume 33
+            volumePartitions.add(new int[]{293, 302}); // Volume 34
+            volumePartitions.add(new int[]{303, 312}); // Volume 35
+            volumePartitions.add(new int[]{313, 321}); // Volume 36
+            volumePartitions.add(new int[]{322, 331}); // Volume 37
+            volumePartitions.add(new int[]{332, 341}); // Volume 38
+            volumePartitions.add(new int[]{342, 351}); // Volume 39
+            volumePartitions.add(new int[]{352, 360}); // Volume 40
+            volumePartitions.add(new int[]{361, 371}); // Volume 41
+            volumePartitions.add(new int[]{372, 379}); // Volume 42
+//            volumePartitions.add(new int[]{375, 384}); // Volume 43
+//            volumePartitions.add(new int[]{385, 393}); // Volume 44
+//            volumePartitions.add(new int[]{394, 402}); // Volume 45
 
             int volCount = 1;
             if (imageFiles != null) {

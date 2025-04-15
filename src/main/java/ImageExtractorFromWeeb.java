@@ -2,26 +2,25 @@ import util.UrlChecker;
 
 import java.util.List;
 
-public class ImageExtractor_V2 {
+public class ImageExtractorFromWeeb {
     public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\JJBA Colored\\raw-images"; // Directory to save downloaded PNGs
+        String saveDirectory = "D:\\IMAGES_for_processing\\I Got a Cheat Skill\\raw-images"; // Directory to save downloaded PNGs
 
         // TODO: EDIT HERE FOR CHAPTER MODS
         boolean mainChapterStartsWithSubChapter = false;
         List<Integer> subChaptersList =
-                List.of();
-//        List.of(2, 4, 5, 7, 12, 17, 19, 21, 28, 30, 37, 38, 41, 43, 45, 51, 53, 59, 61, 67, 69, 75, 77);
+        List.of();
         // TODO: EDIT HERE FOR CHAPTER MODS
 
         int countOfImagesNotFound = 0;
         // Create the directory if it doesn't exist
         ImageExtractor.createDirectoryIfNotExists(saveDirectory);
-        int chapter = 29; //starting chapter
+        int chapter = 1; //starting chapter
         int imagePageNumber = 1;
         String imageSource = null;
-        String baseUrl = "https://scans.lastation.us/manga/Jojos-Bizarre-Adventure-Color/";
+        String baseUrl = "https://official.lowee.us/manga/Isekai-de-Cheat-Skill-wo-te-ni-Shita-ore-wa/";
         try {
-            outerWhile: while (chapter <= 131) {
+            outerWhile: while (chapter <= 33) {
                 if(chapter > 999) {
                     if(imagePageNumber > 9) {
                         imageSource = baseUrl+"" + chapter + "-0" + imagePageNumber + ".png";
@@ -129,7 +128,7 @@ public class ImageExtractor_V2 {
                     if(!UrlChecker.isUrlNotFound(imageSource)) {
                         countOfImagesNotFound = 1;
                         System.out.println("downloading chapter image: " + imageSource + " = counter before resetting: " + countOfImagesNotFound);
-                        Thread.sleep(400);
+                        Thread.sleep(100);
                         ImageExtractor.downloadPng(imageSource, saveDirectory, false);
                     }
                     else {
