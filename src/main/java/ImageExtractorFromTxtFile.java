@@ -9,7 +9,12 @@ import java.io.IOException;
 
 public class ImageExtractorFromTxtFile {
     public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\The Seductive Wife\\raw-images"; // Directory to save downloaded PNGs
+//        printOutChapterNums(76);
+        extractImages();
+    }
+
+    public static void extractImages() {
+        String saveDirectory = "D:\\IMAGES_for_processing\\The Grand Duke's Beloved Granddaughter\\raw-images"; // Directory to save downloaded PNGs
         String textFilePath = ImageExtractorFromTxtFile.class.getClassLoader().getResource("htmlmappings.txt").getPath(); // Path to the text file in resources // Path to the text file
 
         // Create the directory if it doesn't exist
@@ -36,6 +41,12 @@ public class ImageExtractorFromTxtFile {
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void printOutChapterNums(int numOfChaps) {
+        for (int i = 1; i < numOfChaps; i++) {
+            System.out.println(i + "cccc");
         }
     }
 }

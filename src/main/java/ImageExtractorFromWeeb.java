@@ -1,26 +1,37 @@
+import bean.MangaDetailFromWeeb;
 import util.UrlChecker;
 
 import java.util.List;
 
 public class ImageExtractorFromWeeb {
+
+    public static MangaDetailFromWeeb getMangaDetailFromWeeb() {
+        return new MangaDetailFromWeeb.Builder()
+                .saveDirectory("D:\\IMAGES_for_processing\\Shadows House\\raw-images")
+                .baseUrl("https://official.lowee.us/manga/Shadows-House/")
+                .startPageNumber(1)
+                .startChapter(1)
+                .endChapter(222)
+                .someChaptersStartsWithSubChapter(false)
+                .subChaptersList(List.of())
+                .build();
+    }
+
     public static void main(String[] args) {
-        String saveDirectory = "D:\\IMAGES_for_processing\\I Got a Cheat Skill\\raw-images"; // Directory to save downloaded PNGs
-
         // TODO: EDIT HERE FOR CHAPTER MODS
-        boolean mainChapterStartsWithSubChapter = false;
-        List<Integer> subChaptersList =
-        List.of();
+        boolean someChaptersStartsWithSubChapter = getMangaDetailFromWeeb().isSomeChaptersStartsWithSubChapter();
+        List<Integer> subChaptersList = getMangaDetailFromWeeb().getSubChaptersList();
         // TODO: EDIT HERE FOR CHAPTER MODS
 
-        int countOfImagesNotFound = 0;
+        int countOfImagesNotFound = 1;
         // Create the directory if it doesn't exist
-        ImageExtractor.createDirectoryIfNotExists(saveDirectory);
-        int chapter = 1; //starting chapter
-        int imagePageNumber = 1;
+        ImageExtractor.createDirectoryIfNotExists(getMangaDetailFromWeeb().getSaveDirectory());
+        int chapter = getMangaDetailFromWeeb().getStartChapter(); //starting chapter
+        int imagePageNumber = getMangaDetailFromWeeb().getStartPageNumber();
         String imageSource = null;
-        String baseUrl = "https://official.lowee.us/manga/Isekai-de-Cheat-Skill-wo-te-ni-Shita-ore-wa/";
+        String baseUrl = "https://official.lowee.us/manga/Kenrantaru-Grande-Scene/";
         try {
-            outerWhile: while (chapter <= 33) {
+            outerWhile: while (chapter <= getMangaDetailFromWeeb().getEndChapter()) {
                 if(chapter > 999) {
                     if(imagePageNumber > 9) {
                         imageSource = baseUrl+"" + chapter + "-0" + imagePageNumber + ".png";
@@ -55,7 +66,7 @@ public class ImageExtractorFromWeeb {
                         imageSource = baseUrl+"000" + chapter + "-00" + imagePageNumber + ".png";
                     }
                 }
-                innerWhile: while (!UrlChecker.isUrlNotFound(imageSource) || mainChapterStartsWithSubChapter) {
+                innerWhile: while (!UrlChecker.isUrlNotFound(imageSource) || someChaptersStartsWithSubChapter) {
                     if(imagePageNumber > 9) {
                         if(chapter > 999) {
                             if(imagePageNumber > 99) {
@@ -114,7 +125,7 @@ public class ImageExtractorFromWeeb {
                                 if(!UrlChecker.isUrlNotFound(imageSubSourceToTest)) {
                                     System.out.println("downloading sub-chapter image: " + imageSubSourceToTest + " = counter before resetting: " + countOfImagesNotFound);
                                     countOfImagesNotFound = 1;
-                                    ImageExtractor.downloadPng(imageSubSourceToTest, saveDirectory, true);
+                                    ImageExtractor.downloadPng(imageSubSourceToTest, getMangaDetailFromWeeb().getSaveDirectory(), true);
                                 }
                                 else {
                                     countOfImagesNotFound++;
@@ -127,9 +138,9 @@ public class ImageExtractorFromWeeb {
 
                     if(!UrlChecker.isUrlNotFound(imageSource)) {
                         countOfImagesNotFound = 1;
-                        System.out.println("downloading chapter image: " + imageSource + " = counter before resetting: " + countOfImagesNotFound);
-                        Thread.sleep(100);
-                        ImageExtractor.downloadPng(imageSource, saveDirectory, false);
+//                        System.out.println("downloading chapter image: " + imageSource + " = counter before resetting: " + countOfImagesNotFound);
+                        Thread.sleep(10);
+                        ImageExtractor.downloadPng(imageSource, getMangaDetailFromWeeb().getSaveDirectory(), false);
                     }
                     else {
                         countOfImagesNotFound++;

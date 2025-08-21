@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,7 +69,9 @@ public class ImageExtractor {
                 File outputFile = new File(saveDirectory, finalFileName);
 
                 if (!outputFile.exists() || outputFile.length() == 0) {
-                    try (InputStream in = url.openStream();
+                    URLConnection connection = url.openConnection();
+                    int expectedLength = connection.getContentLength();
+                    try (InputStream in = connection.getInputStream();
                          FileOutputStream out = new FileOutputStream(outputFile)) {
                         byte[] buffer = new byte[BUFFER_SIZE];
                         int bytesRead;
@@ -78,18 +81,23 @@ public class ImageExtractor {
                     }
 
                     // Verify if file is correctly downloaded
-                    if (outputFile.length() > 0) {
+                    if (outputFile.length() > 0 && (expectedLength <= 0 || outputFile.length() == expectedLength)) {
                         success = true;
                         System.out.println("Download successful: " + finalFileName);
                     } else {
-                        System.out.println("Download failed (zero bytes), retrying... Attempt " + attempts);
+                        System.out.println("Download failed (incomplete or zero bytes), retrying... Attempt " + attempts);
                         outputFile.delete();
+                        try { Thread.sleep(500); } catch (InterruptedException ignored) {}
                     }
                 } else {
                     success = true;
                     System.out.println("File already exists: " + finalFileName);
                 }
             } catch (IOException e) {
+                if(e.getMessage().contains("HTTP response code: 523")) {
+                    System.out.println("File not found: " + pngUrl);
+                    break; // Stop retrying if the file is not found
+                }
                 System.out.println("Download error, retrying... Attempt " + attempts);
             }
         }

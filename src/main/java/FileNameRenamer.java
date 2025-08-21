@@ -2,7 +2,7 @@ import java.io.File;
 
 public class FileNameRenamer {
     public static void main(String[] args) {
-        String folderPath = "D:\\DOWNLOADS\\ungrouped CBZs";  // Replace with the actual folder path
+        String folderPath = "D:\\DOWNLOADS\\grouped CBZs\\Don't Toy With Me, Miss Nagatoro (18)";  // Replace with the actual folder path
         File folder = new File(folderPath);
 
         File[] files = folder.listFiles();
@@ -41,7 +41,7 @@ public class FileNameRenamer {
     }
 
     private static String reduceCBZFileNameBy(String originalName) {
-        return originalName.substring(0, Math.min(originalName.length(), 23)) + ".cbz";
+        return originalName.substring(0, Math.min(originalName.length(), 36)) + ".cbz";
     }
 
     private static String reduceEPUBFileNameBy(String originalName) {
@@ -49,7 +49,7 @@ public class FileNameRenamer {
     }
 
     private static String removeUnkownAuthorFormat(String originalName) {
-        return originalName.replace(" - Unknown", "");
+        return originalName.replace(" - Unknown", " - H.F");
     }
 
     private static String replaceAuthorFormat(String originalName) {

@@ -13,11 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ImageExtractorUtil {
-    public static String subChapter = ".2";
+    public static String subChapter = "";
     public static void main(String[] args) {
         String htmlContent = HtmlConstant.getHTMLContent();
-        String saveDirectory = "D:\\IMAGES_for_processing\\Mieruko-chan\\raw-images"; // Directory to save downloaded PNGs
-        int chapter = 50;
+        String saveDirectory = "D:\\IMAGES_for_processing\\The King's Beast\\raw-images"; // Directory to save downloaded PNGs
+        int chapter = 35;
 
         // Create the directory if it doesn't exist
         createDirectoryIfNotExists(saveDirectory);

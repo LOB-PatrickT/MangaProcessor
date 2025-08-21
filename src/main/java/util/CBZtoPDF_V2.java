@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +19,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
 public class CBZtoPDF_V2 {
+
+    static float widthScaleFactor = 1.1f; // Adjust this value to control width scaling
+    static float heightScaleFactor = 1.0f;
+    static float resizeFactor = 1.0f; // Adjust this value to control file size (1.0 = no resizing)
+
     public static void convertCBZToPDF(String cbzFilePath, String outputPdfPath, float resizeFactor) {
         try (PDDocument pdfDocument = new PDDocument();
              ZipInputStream zis = new ZipInputStream(new FileInputStream(cbzFilePath))) {
@@ -28,12 +34,10 @@ public class CBZtoPDF_V2 {
                 if (!entry.isDirectory() && entry.getName().matches(".*\\.(jpg|jpeg|png|gif)$")) {
                     // Read and process each image
                     BufferedImage image = ImageIO.read(zis);
-                    if (resizeFactor < 1.0f) {
-                        image = resizeImage(image, resizeFactor);
-                    }
 
                     // Create a page with dimensions matching the image
-                    PDRectangle pageSize = new PDRectangle(image.getWidth(), image.getHeight());
+                    PDRectangle pageSize = new PDRectangle(1200 * resizeFactor, 1600 * resizeFactor);
+
                     PDPage page = new PDPage(pageSize);
                     pdfDocument.addPage(page);
 
@@ -55,14 +59,6 @@ public class CBZtoPDF_V2 {
         }
     }
 
-    private static BufferedImage resizeImage(BufferedImage originalImage, float resizeFactor) {
-        int newWidth = (int) (originalImage.getWidth() * resizeFactor);
-        int newHeight = (int) (originalImage.getHeight() * resizeFactor);
-        BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-        resizedImage.getGraphics().drawImage(originalImage.getScaledInstance(newWidth, newHeight, BufferedImage.SCALE_SMOOTH), 0, 0, null);
-        return resizedImage;
-    }
-
     private static byte[] imageToBytes(BufferedImage image) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", baos); // Save as JPG (or change to PNG if needed)
@@ -75,7 +71,6 @@ public class CBZtoPDF_V2 {
     public static void main(String[] args) {
         String inputFolderPath = "D:\\CBZ_for_processing\\";
         String outputFolderPath = "D:\\CBZ_for_processing\\output\\";
-        float resizeFactor = 0.7f; // Adjust this value to control file size (1.0 = no resizing)
 
         File inputFolder = new File(inputFolderPath);
         File[] cbzFiles = inputFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".cbz"));
